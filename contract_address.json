@@ -1,0 +1,32 @@
+{
+    "contracts": [
+        {
+            "type": "ModuleManager",
+            "address": "0x6779178Ba139A61890A0B05a15045dF2ED0ae2dd"
+        },
+        {
+            "type": "ProtocolFeeSettings",
+            "address": "0x2A0f0A203F845716D47E0121E8d29c7cEC47f738"
+        },
+        {
+            "type": "AsksV1_1",
+            "address": "0xE49a78aafcAFA57a7795B42A68b7b02D7f481baC"
+        },
+        {
+            "type": "WETH",
+            "address": "0xE9cF9154212D862264E794b72B8aB4568Bb50813"
+        },
+        {
+            "type": "Metadata",
+            "address": "0x697291b3E74C63aAb6D358139B4CE3C6ec93b4ac"
+        },
+        {
+            "type": "MyToken",
+            "address": "0x2C023A22743526060578a3551c6Ab2E04DdFE459"
+        },
+        {
+            "type": "ERC721TransferHelper",
+            "address": "0x7a56178610624943aeDF11Ce7b7C9d991aFBCc36"
+        }
+    ]
+}
