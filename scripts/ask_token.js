@@ -2,6 +2,33 @@ const fs = require('fs');
 const { ethers } = require('hardhat');
 const { NetworkUserConfig } = require('hardhat/types');
 
+/// @notice This feature belongs to the ModuleManager contract, it's a requirement before creating an ask
+/// @notice Allows a user to set the approval for a given module
+/// @param _module The module to approve
+/// @param _approved A boolean, whether or not to approve a module
+async function approveModule(module, approved) {
+    const RPC_ENDPOINT = "https://evmos-testnet-jsonrpc.alkadeta.com/";
+    const ABI_PATH = "./ABIs/ModuleManager.json";
+    const CONTRACT_ADDRESS = "0x6779178Ba139A61890A0B05a15045dF2ED0ae2dd";
+    const privateKey = fs.readFileSync('.secret').toString().trim();
+
+    // Create an ethers provider connected to the RPC endpoint
+    const provider = new ethers.JsonRpcProvider(RPC_ENDPOINT);
+
+    // Load the private key from the secret file and connect it to the provider
+    const signer = new ethers.Wallet(privateKey, provider);
+
+    // Load ABI of contract
+    const ABI = JSON.parse(fs.readFileSync(ABI_PATH)).abi;
+
+    // Connect to the contract with the signer and the ABI
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+    // Approve the module
+    const tx = await contract.setApprovalForModule(module, approved);
+    console.log("Approving module transaction: ", tx.hash);
+}
+
 async function approveNFT(contract, tokenContract, approved) {
     const RPC_ENDPOINT = "https://evmos-testnet-jsonrpc.alkadeta.com/";
     const ABI_PATH = "./ABIs/MyToken.json";
@@ -49,8 +76,11 @@ async function main() {
     // Connect to the contract with the signer and the ABI
     const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
+    // Before creating an ask, we need to approve the module
+    await approveModule(CONTRACT_ADDRESS, true);
+
     // We need to approve the contract to transfer the NFT
-    const NFT_ADDRESS = "0x2C023A22743526060578a3551c6Ab2E04DdFE459";
+    const NFT_ADDRESS = "0x200b01b3a8882697b44bD401c04bF2Fc6eA9A4bB";
     await approveNFT(ERC721TRANSFERHELPER, NFT_ADDRESS, true);
 
     /// @notice Creates the ask for the NFT with token id 1

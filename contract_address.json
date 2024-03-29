@@ -25,6 +25,10 @@
             "address": "0x2C023A22743526060578a3551c6Ab2E04DdFE459"
         },
         {
+            "type": "MyToken2",
+            "address": "0x200b01b3a8882697b44bD401c04bF2Fc6eA9A4bB"
+        },
+        {
             "type": "ERC721TransferHelper",
             "address": "0x7a56178610624943aeDF11Ce7b7C9d991aFBCc36"
         }

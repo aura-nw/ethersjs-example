@@ -5,7 +5,7 @@ const { NetworkUserConfig } = require('hardhat/types');
 async function main() {
     const RPC_ENDPOINT = "https://evmos-testnet-jsonrpc.alkadeta.com/";
     const ABI_PATH = "./ABIs/MyToken.json";
-    const CONTRACT_ADDRESS = "0x2C023A22743526060578a3551c6Ab2E04DdFE459";
+    const CONTRACT_ADDRESS = "0x200b01b3a8882697b44bD401c04bF2Fc6eA9A4bB";
     const privateKey = fs.readFileSync('.secret').toString().trim();
 
     // Create an ethers provider connected to the RPC endpoint
@@ -24,13 +24,19 @@ async function main() {
     const name = await contract.name();
     console.log("Contract name: ", name);
 
-    // // Mint 1 token to deployer
-    // const tx = await contract.safeMint(signer.address);
-    // console.log("Minting transaction: ", tx.hash);
+    console.log("Deployer address: ", signer.address);
+
+    // Mint 1 token to deployer
+    const tx = await contract.safeMint(signer.address);
+    console.log("Minting transaction 1: ", tx.hash);
 
     // // Mint 1 more token to deployer
     // const tx2 = await contract.safeMint(signer.address);
-    // console.log("Minting transaction: ", tx2.hash);
+    // console.log("Minting transaction 2: ", tx2.hash);
+
+    // // Mint 1 more token to deployer
+    // const tx3 = await contract.safeMint(signer.address);
+    // console.log("Minting transaction 3: ", tx3.hash);
 
     // Query token uri
     const tokenURI = await contract.tokenURI(0);
